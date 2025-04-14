@@ -3,7 +3,6 @@
 Xin chào! Đây là nơi lưu giữ hành trình tham gia các cuộc thi lập trình của mình trong giai đoạn 2021–2024.  
 Mỗi cột mốc đều là sự nỗ lực, học hỏi và trưởng thành hơn trong lĩnh vực thuật toán và kỹ năng lập trình.
 
-# Hành Trình Thi Đấu Lập Trình (2021–2024)
 
 | Năm  | Cuộc thi                                           | Thành tích                                  |
 |----- |---------------------------------------------------|---------------------------------------------|
