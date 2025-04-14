@@ -1,0 +1,15 @@
+*.exe
+*.txt 
+*.o
+*.layout 
+*.inp
+*.in
+*.out 
+*.ans 
+*.cbp 
+*.depend 
+
+.vscode/
+tempCodeRunnerFile.cpp 
+t.cpp
+*.zip

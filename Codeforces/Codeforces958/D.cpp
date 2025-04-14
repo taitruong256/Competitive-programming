@@ -1,0 +1,76 @@
+/*==============================================================================================================
+         __                    __                                             _____     ______    _______
+        |  |                  |  |                                           /  __ \   / _____|  / ______|     
+      __|  |__              __|  |__                                         |_|  | |  | |       | |  
+     |__|   __|            |__|   __|                                             | |  | |____   | |_____ 
+        |  |    _____   _     |  |    ____  __  __  ____    _____    _____       / /   \ ___  \  |  ___  \
+        |  |   /  _  \ | |    |  |   /  _/ | | | | /  _  \ /  __ \  /  _  \     / /         | |  | |   | |
+        |  |_  | |_| | | |    |  |_  | |   | |_| | | |_| | | |  | | | |_| |    / /___   ____| |  | |___| |
+        \____\ \____/| |_|    \____\ |_|   \_____/ \_____/ |_|  |_| \____ |   |______| |______/  \_______/
+                                                                        | |
+                                                                      __/ |
+                                                                     |___/  
+                                        Pratice, practice, and practice
+                                     Try, try, try again until you succeed
+I hated every minute of training, but I said, 'Don't quit. Suffer now and live the rest of your life as a champion.' - Mohamed Ali 
+                              You may not be the best, but must be the most effort
+     Even the things and people you like, you don't have the courage to take, you are destined to be a failure.
+                                           Difficult means more time
+                                          Done is better than perfect
+                                         Pain + Reflection = Progress 
+     Laziness is only temporary comfort. The future will regret that day. Don't fall into the trap of comfort.
+                The most beautiful meeting in this world is meeting the best version of yourself.
+                          Practice doing things you don't like but are useful to you
+                                   Success is born from problem solving
+==============================================================================================================*/
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define ld long double
+#define endl '\n'
+#define sz(x) (ll)(x.size())
+const ll mod = 1e9+7;
+
+ll n, a[300005], chan=0, le=0;
+vector<ll> adj[300005];
+
+void dfs(ll u, ll p, ll d)
+{
+    if (d%2==0) chan+=a[u];
+    else le+=a[u];
+    for (auto v: adj[u]) if (v!=p)
+    {
+        dfs(v, u, d+1);
+    }
+}
+
+void solve()
+{
+    cin>>n;
+    for (ll i=1; i<=n; i++) cin>>a[i];
+    for (ll i=1; i<=n-1; i++)
+    {
+        ll u, v; cin>>u>>v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    dfs(1, 0, 1);
+    cout<<chan+le+min(chan, le)<<endl;
+    for (ll i=1; i<=n; i++) adj[i].clear();
+    chan=le=0;
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+    clock_t start = clock();
+    #ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    #endif
+    ll t; cin>>t;
+    while (t--) solve();
+    clock_t end = clock();
+    cerr<<"Time: "<<fixed<<setprecision(10)<<double(end-start)/double(CLOCKS_PER_SEC)<<"\n";
+    return 0;
+}

@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+ 
+using namespace std;
+ 
+int main() {
+  ios::sync_with_stdio(false);
+  cin.tie(0);
+  #ifndef ONLINE_JUDGE
+    freopen("_input.txt","r",stdin);
+    freopen("_output.txt", "w", stdout);
+    #endif  
+  int tt;
+  cin >> tt;
+  while (tt--) {
+    int n;
+    long long k;
+    cin >> n >> k;
+    vector<long long> a(n);
+    for (int i = 0; i < n; i++) {
+      cin >> a[i];
+    }
+    sort(a.begin(), a.end());
+    vector<long long> pref(n + 1);
+    for (int i = 0; i < n; i++) {
+      pref[i + 1] = pref[i] + a[i];
+    }
+    long long ans = (long long) 9e18;
+    for (int t = 0; t <= n - 1; t++) {     cout<<"\n\nvong thu "<<t<<endl;
+      long long sum = pref[n - t] + a[0] * t;   cout<<"--sum = "<<sum<<endl;
+      long long cur = t;
+      if (sum > k) {
+        long long diff = sum - k;
+        cur += (diff + t) / (t + 1);     cout<<"      cur = "<<cur<<endl;
+      }
+      ans = min(ans, cur);        cout<<"------ans = "<<ans<<endl;
+    }
+    cout << ans << '\n';
+  }
+  return 0;
+}

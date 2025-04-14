@@ -1,0 +1,137 @@
+/*==============================================================================================================
+         __                    __                                             _____     ______    _______
+        |  |                  |  |                                           /  __ \   / _____|  / ______|     
+      __|  |__              __|  |__                                         |_|  | |  | |       | |  
+     |__|   __|            |__|   __|                                             | |  | |____   | |_____ 
+        |  |    _____   _     |  |    ____  __  __  ____    _____    _____       / /   \ ___  \  |  ___  \
+        |  |   /  _  \ | |    |  |   /  _/ | | | | /  _  \ /  __ \  /  _  \     / /         | |  | |   | |
+        |  |_  | |_| | | |    |  |_  | |   | |_| | | |_| | | |  | | | |_| |    / /___   ____| |  | |___| |
+        \____\ \____/| |_|    \____\ |_|   \_____/ \_____/ |_|  |_| \____ |   |______| |______/  \_______/
+                                                                        | |
+                                                                      __/ |
+                                                                     |___/  
+                                        Pratice, practice, and practice
+                                       Where is the bug, delete it there
+                                     Try, try, try again until you succeed
+I hated every minute of training, but I said, 'Don't quit. Suffer now and live the rest of your life as a champion.' - Mohamed Ali 
+                              You may not be the best, but must be the most effort
+     Even the things and people you like, you don't have the courage to take, you are destined to be a failure.
+                                           Difficult means more time
+                                          Done is better than perfect
+                                         Pain + Reflection = Progress 
+==============================================================================================================*/
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define ld long double
+#define endl '\n'
+const ll mod = 1e9+7;
+
+struct segment_tree_lazy
+{
+    vector<ll> tree, lazy;
+    ll n;
+
+    segment_tree_lazy(){}
+    segment_tree_lazy(ll _n)
+    {
+        n=_n;
+        tree.resize(4*n+5);
+        lazy.resize(4*n+5);
+    }
+
+    ll opt(ll x, ll y)
+    {
+        return x+y;
+    }
+
+    void down(ll id, ll l, ll r)
+    {
+        ll t=lazy[id];
+        if (t>0)
+        {
+            ll mid=(l+r)/2;
+            tree[id*2]=t*(mid-l+1);
+            lazy[id*2]+=t;
+            tree[id*2+1]=t*(r-mid);
+            lazy[id*2+1]+=t;
+            lazy[id]=0;
+        }
+    }
+
+    ll query(ll id, ll l, ll r, ll u, ll v)
+    {
+        if (l>v || r<u) return 0;
+        if (u<=l && r<=v) return tree[id];
+        ll mid=(l+r)/2;
+        down(id, l, r);
+        return opt(query(id*2, l, mid, u, v), query(id*2+1, mid+1, r, u, v));
+    }
+
+    void update(ll id, ll l, ll r, ll u, ll v, ll val)
+    {
+        if (l>v || r<u) return;
+        if (u<=l && r<=v) 
+        {
+            tree[id]=r-l+1;
+            lazy[id]+=val;
+            return;
+        }
+        ll mid=(l+r)/2;
+        down(id, l, r);
+        update(id*2, l, mid, u, v, val);
+        update(id*2+1, mid+1, r, u, v, val);
+        tree[id]=opt(tree[id*2], tree[id*2+1]);
+    }
+};
+
+void solve()
+{
+    string s; cin>>s;
+    s=" "+s+" ";
+    ll n=s.size()-2, cnt=0;
+    vector<ll> l(n+5), r(n+5);
+    segment_tree_lazy seg(n);
+
+    cnt=0;
+    for (ll i=1; i<=n; i++) if (s[i]=='A') ++cnt; else l[i]=cnt, cnt=0; 
+    cnt=0;
+    for (ll i=n; i>=1; i--) if (s[i]=='A') ++cnt; else r[i]=cnt, cnt=0; 
+
+    vector<ll> idx;
+    idx.push_back(0);
+    for (ll i=1; i<=n; i++) if (s[i]=='B') idx.push_back(i);
+    vector<vector<ll>> dp(n+5, vector<ll> (3));
+    for (ll i=1; i<=idx.size()-1; i++)
+    {
+        dp[idx[i]][0]=dp[idx[i-1]][0]+l[idx[i]];
+        dp[idx[i]][1]=max(dp[idx[i-1]][0], dp[idx[i-1]][1])+r[idx[i]];
+    }
+    ll ans=0;
+    for (ll i=1; i<=idx.size()-1; i++) 
+    {
+        // cout<<idx[i]<<" "<<" "<<l[idx[i]]<<" "<<r[idx[i]]<<"   ";
+        for (ll j=0; j<=1; j++) 
+        {
+            ans=max(ans, dp[idx[i]][j]);
+            // cout<<dp[idx[i]][j]<<" ";
+        }
+        // cout<<endl;
+    }
+    cout<<ans<<endl;
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+    clock_t start = clock();
+    #ifndef ONLINE_JUDGE
+    freopen("_input.txt", "r", stdin);
+    freopen("_output.txt", "w", stdout);
+    #endif
+    ll t; cin>>t;
+    while (t--) solve();
+    clock_t end = clock();
+    cerr<<"Time: "<<fixed<<setprecision(10)<<double(end-start)/double(CLOCKS_PER_SEC)<<"\n";
+    return 0;
+}

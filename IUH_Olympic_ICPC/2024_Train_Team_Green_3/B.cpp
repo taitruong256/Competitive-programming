@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define ld long double
+#define endl '\n'
+#define sz(x) (ll)(x.size())
+const ll mod = 1e9+7;
+
+void solve()
+{
+    string s; cin>>s;
+    string t; cin>>t;
+    ll n=s.size(), m=t.size(), ans=n+m;
+    ll maxpref=0;
+    for (ll i=0; i<min(n, m); i++) 
+        if (s[i]==t[i]) maxpref=i+1;
+        else break;
+    cout<<n+m-maxpref+1<<endl;
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+    #ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    #endif
+    solve();
+    return 0;
+}

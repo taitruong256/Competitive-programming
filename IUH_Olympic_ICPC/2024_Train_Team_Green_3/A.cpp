@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define ld long double
+#define endl '\n'
+#define sz(x) (ll)(x.size())
+const ll mod = 1e9+7;
+
+void solve()
+{
+    ll n; cin>>n;
+    ll ans=n-1;
+    for (ll i=1; i<=n-1; i++)
+    {
+        if (n%(i+1)==0) ans=min(ans, i+n/(i+1)-1);
+    }
+    cout<<ans;
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+    #ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    #endif
+    solve();
+    return 0;
+}
