@@ -13,4 +13,4 @@ Mỗi cột mốc đều là sự nỗ lực, học hỏi và trưởng thành h
 | 2022 | Olympic Tin học Sinh viên Việt Nam (OLP'22) khối **Chuyên Tin**       | **Giải Nhì**  |
 | 2023 | ICPC Vietnam Southern Provincial Contest 2023     | **Third Prize** |
 | 2023 | ICPC Vietnam National Contest 2023                | **Consolation Prize** |
-| 2023 | ICPC Asia Hanoi Regional Contest 2024                | **Consolation Prize (Top 12 Vietnam)** |
+| 2024 | ICPC Asia Hanoi Regional Contest 2024                | **Consolation Prize (Top 12 Vietnam)** |
